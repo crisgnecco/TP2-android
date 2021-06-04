@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "Toast!!", Toast.LENGTH_LONG).show();
 
         //starts another activity with intent
-        Intent intent = new Intent(this, SegundaActivity.class);
+        Intent intent = new Intent(this, CreacionDeUsuarioActivity.class);
 
         //buscar el boton
         //EditText editText = (EditText) findViewById(R.id.editText);
