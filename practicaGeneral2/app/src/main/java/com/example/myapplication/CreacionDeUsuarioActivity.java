@@ -16,29 +16,10 @@ import android.widget.Toast;
 
 public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
-    private BroadcastReceiver MyReceiver = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creacion_de_usuario);
-
-        //para checkear conexion
-        MyReceiver = new MyReceiver();
-        broadcastIntent();
-
-    }
-
-    //TODO: evaluar si esta de mas el receiver q muestre los cambios en la conexion a internet,
-    public void broadcastIntent() {
-        //pongo a correr el broadcast reciever
-        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(MyReceiver);
     }
 
 
