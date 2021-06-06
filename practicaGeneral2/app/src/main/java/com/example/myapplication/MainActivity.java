@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         final PatternLockView mPatternLockView = findViewById(R.id.pattern_lock_view);
 
         PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
+
+            Intent intent;
             @Override
             public void onStarted() {
             }
@@ -46,20 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+
+            /**Se compara el patron completo con un patron predefinido autenticar.*/
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern) {
-                Log.d("patron::", "Pattern complete: " +
-                        PatternLockUtils.patternToString(mPatternLockView, pattern));
-
-                //Toast.makeText(getBaseContext(),PatternLockUtils.patternToString(mPatternLockView, pattern) , Toast.LENGTH_LONG).show();
-                //04876
 
                 String patronActual = PatternLockUtils.patternToString(mPatternLockView, pattern);
 
+                //TODO: ver si se puede agregar como constante en R.string
                 if(patronActual.equals(String.format("04876"))){
-                    Toast.makeText(getBaseContext(),"Dejar pasar!!!", Toast.LENGTH_SHORT).show();
 
-                    //TODO: aca llamar a la funcion que hace pasar el conexto a la siguiente activity
+                    Toast.makeText(getBaseContext(),"Patron correcto!", Toast.LENGTH_SHORT).show();
+
+                    intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
+                    startActivity(intent);
 
                 }else{
                     Toast.makeText(getBaseContext(),"Patron incorrecto!!!", Toast.LENGTH_SHORT).show();
