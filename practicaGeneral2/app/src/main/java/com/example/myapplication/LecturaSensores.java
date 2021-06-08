@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -28,6 +30,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         proximidad = findViewById(R.id.proximidad);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        cargarValoresSensores();
 
     }
 
@@ -75,6 +79,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     @Override
     protected void onDestroy() {
+        guardarValoresSensores();
         quitarSensores();
         super.onDestroy();
     }
@@ -115,6 +120,35 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    private void cargarValoresSensores(){
+        SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
+
+        String acelerometro = preferences.getString("user", "No hay valores anteriores");
+        String proximidad = preferences.getString("user", "No hay valores anteriores");
+
+        this.acelerometro.setText(acelerometro);
+        this.proximidad.setText(proximidad);
+    }
+
+    private void guardarValoresSensores(){
+
+        SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
+
+        String acelerometro = this.acelerometro.getText().toString();
+        String proximidad = this.proximidad.getText().toString();
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("acelerometro", acelerometro);
+        editor.putString("proximidad", proximidad);
+
+        System.out.println(acelerometro);
+        System.out.println(proximidad);
+
+        editor.apply();
 
     }
 }
