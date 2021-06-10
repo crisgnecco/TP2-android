@@ -8,9 +8,14 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.andrognito.patternlockview.PatternLockView;
+import com.andrognito.patternlockview.listener.PatternLockViewListener;
+import com.andrognito.patternlockview.utils.PatternLockUtils;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,21 +28,60 @@ public class MainActivity extends AppCompatActivity {
         TextView msgTextView = findViewById(R.id.textView);
         msgTextView.setText(getEStadoBateria());
 
+
+
+        /** Patron de desbloqueo*/
+
+        final PatternLockView mPatternLockView = findViewById(R.id.pattern_lock_view);
+
+        PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
+
+            Intent intent;
+            @Override
+            public void onStarted() {
+            }
+
+            @Override
+            public void onProgress(List<PatternLockView.Dot> progressPattern) {
+                Log.d(getClass().getName(), "Pattern progress: " +
+                        PatternLockUtils.patternToString(mPatternLockView, progressPattern));
+
+            }
+
+
+            /**Se compara el patron completo con un patron predefinido autenticar.*/
+            @Override
+            public void onComplete(List<PatternLockView.Dot> pattern) {
+
+                String patronActual = PatternLockUtils.patternToString(mPatternLockView, pattern);
+
+                //TODO: ver si se puede agregar como constante en R.string
+                if(patronActual.equals(String.format("04876"))){
+
+                    Toast.makeText(getBaseContext(),"Patron correcto!", Toast.LENGTH_SHORT).show();
+
+                    intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
+                    startActivity(intent);
+
+                }else{
+                    Toast.makeText(getBaseContext(),"Patron incorrecto!!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCleared() {
+                Log.d(getClass().getName(), "Pattern has been cleared");
+            }
+        };
+
+        mPatternLockView.addPatternLockListener(mPatternLockViewListener);
     }
 
 
     public void siguienteActivity(View view){
 
-        //Toast.makeText(getApplicationContext(), "Toast!!", Toast.LENGTH_LONG).show();
-
         //starts another activity with intent
-        Intent intent = new Intent(this, SegundaActivity.class);
-
-        //buscar el boton
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);    //an extra is a message(key,value)
-        //Log.i("MainActivity", "Se envio mensaje!");
+        Intent intent = new Intent(this, CreacionDeUsuarioActivity.class);
 
         startActivity(intent);
 
