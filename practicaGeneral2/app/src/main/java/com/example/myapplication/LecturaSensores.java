@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -19,6 +20,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
     private SensorManager mSensorManager;
     private TextView acelerometro;
     private TextView temperatura;
+    private TextView detectaHorizontal;
     DecimalFormat dosdecimales = new DecimalFormat("###.###");
 
     @Override
@@ -28,6 +30,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
         acelerometro = findViewById(R.id.acelerometro);
         temperatura = findViewById(R.id.temperatura);
+        detectaHorizontal = findViewById(R.id.detectaHorizontal);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -102,6 +105,19 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
                     texto += "y: " + dosdecimales.format(event.values[1]) + " m/seg2 \n";
                     texto += "z: " + dosdecimales.format(event.values[2]) + " m/seg2 \n";
                     acelerometro.setText(texto);
+
+                    if(event.values[0] > 9.5 || event.values[0] < -9.5){
+                        detectaHorizontal.setBackgroundColor(Color.RED);
+                        detectaHorizontal.setText("Celular en horizontal");
+                    }else{
+                        detectaHorizontal.setBackgroundColor(Color.parseColor("#FAFAFA"));
+                        detectaHorizontal.setText("");
+                    }
+
+                    /*
+                    if(event.values[0] > 9.5 || event.values[0] < -9.5)
+                        Toast.makeText(getApplicationContext(), "Celular en horizontal", Toast.LENGTH_SHORT).show();
+                    */
 
                     break;
 
