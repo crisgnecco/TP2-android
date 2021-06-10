@@ -31,8 +31,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creacion_de_usuario);
     }
 
-
-
+        //TODO: buscar fuente
         public boolean hayConexionAInternet() {
             boolean connected = false;
             ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -53,13 +52,21 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         //obtener datos de editTexts
         EditText passView = findViewById(R.id.passEditText);
         EditText emailView = findViewById(R.id.emailEditText);
-
+        EditText nombreView = findViewById(R.id.nombreEditText);
+        EditText apellidoView = findViewById(R.id.apellidoEditText);
+        EditText dniView = findViewById(R.id.dniEditText);
 
         //Log.d("Debug", passView.getText().toString());
         //Log.d("Debug", emailView.getText().toString());
 
         String pass = passView.getText().toString();
         String email = emailView.getText().toString();
+
+        //TODO: validar email
+
+        String nombre= nombreView.getText().toString();
+        String apellido = apellidoView.getText().toString();
+        String dni = dniView.getText().toString();
 
         //verificar conexion
 
@@ -68,26 +75,29 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         }else{
 
             //conextar a WS
-            registrar(email, pass);
-
-            //hacer POST de datos de usuario para registrarlo
+            registrar(nombre, apellido, dni, email, pass);
         }
     }
 
-    private void registrar(String email, String pass) {
-
+    private void registrar(String nombre, String apellido, String dni, String email, String pass) {
 
         SoaRequest request = new SoaRequest();
 
-        request.setEnv("TEST");
-        request.setName("Cris");
-        request.setLastname("Gnecco");
+        //request.setName("Cris");
+        //request.setLastname("Gnecco");
+        // request.setDni(40024360);
+        //request.setEmail(email);
+          request.setDni(40024360);
+        //request.setEmail("cris.gneccoxd@gmail.com")
+        //request.setPassword("miercoles1");
 
-        request.setDni(40024360);
+        request.setEnv("TEST");
+        request.setName(nombre);
+        request.setLastname(apellido);
+        //TODO: arreglar
+        //request.setDni(Long.getLong(dni));
         request.setEmail(email);
-        //request.setEmail("cris.gneccoxd@gmail.com");
         request.setPassword(pass);
-        request.setPassword("miercoles1");
         request.setCommission(3900);
         request.setGroup(7);
 
@@ -112,10 +122,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                         token = response.body().getToken();
 
                     }else{
-
-                        //TODO: ver cuando pones params incorrectos(ej, mail sin @) y como manejarlo
                         //Toast.makeText(getBaseContext(), "Error en registro: " +response.body().getSuccess() , Toast.LENGTH_LONG).show();
-
                     }
             }
 
@@ -124,8 +131,6 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 Log.e("failure", t.getMessage());
             }
         });
-
-
 
     }
 
