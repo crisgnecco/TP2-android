@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/proximidad"
+                android:id="@+id/temperatura"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 

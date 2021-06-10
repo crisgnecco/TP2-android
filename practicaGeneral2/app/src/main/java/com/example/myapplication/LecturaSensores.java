@@ -18,7 +18,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     private SensorManager mSensorManager;
     private TextView acelerometro;
-    private TextView proximidad;
+    private TextView temperatura;
     DecimalFormat dosdecimales = new DecimalFormat("###.###");
 
     @Override
@@ -27,7 +27,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         setContentView(R.layout.activity_main);
 
         acelerometro = findViewById(R.id.acelerometro);
-        proximidad = findViewById(R.id.proximidad);
+        temperatura = findViewById(R.id.temperatura);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -37,12 +37,12 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     private void registrarSensores(){
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),   SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),   SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void quitarSensores(){
         mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-        mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+        mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
     public void iniciarSenseo(View view){
@@ -105,12 +105,11 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
                     break;
 
-                case Sensor.TYPE_PROXIMITY :
-                    texto += "Proximidad:\n";
-                    texto += event.values[0] + "\n";
+                case Sensor.TYPE_LIGHT :
+                    texto += "Temperatura\n";
+                    texto += event.values[0] + " °C \n";
 
-                    proximidad.setText(texto);
-
+                    temperatura.setText(texto);
                     break;
 
             }
@@ -126,11 +125,11 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
     private void cargarValoresSensores(){
         SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
 
-        String acelerometro = preferences.getString("user", "No hay valores anteriores");
-        String proximidad = preferences.getString("user", "No hay valores anteriores");
+        String acelerometro = preferences.getString("acelerometro", "No hay valores anteriores");
+        String proximidad = preferences.getString("temperatura", "No hay valores anteriores");
 
         this.acelerometro.setText(acelerometro);
-        this.proximidad.setText(proximidad);
+        this.temperatura.setText(proximidad);
     }
 
     private void guardarValoresSensores(){
@@ -138,12 +137,12 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
 
         String acelerometro = this.acelerometro.getText().toString();
-        String proximidad = this.proximidad.getText().toString();
+        String proximidad = this.temperatura.getText().toString();
 
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString("acelerometro", acelerometro);
-        editor.putString("proximidad", proximidad);
+        editor.putString("temperatura", proximidad);
 
         System.out.println(acelerometro);
         System.out.println(proximidad);
