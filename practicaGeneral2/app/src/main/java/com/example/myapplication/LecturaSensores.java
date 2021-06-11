@@ -22,6 +22,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     private SensorManager mSensorManager;
     private EditText temperatura;
+    private float valorTemperatura;
+    DecimalFormat unDecimal = new DecimalFormat("###.#");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,13 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
                         Toast.makeText(getApplicationContext(), "Celular en horizontal", Toast.LENGTH_SHORT).show();
 
                     break;
+
+                case Sensor.TYPE_LIGHT :
+
+                    valorTemperatura = event.values[0];
+                    mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+
+                    break;
             }
         }
 
@@ -129,4 +138,10 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         Toast.makeText(getApplicationContext(), "Gracias por llenar el formulario", Toast.LENGTH_SHORT).show();
 
     }
+
+    public void tomarTemperatura(View view){
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
+        temperatura.setText(unDecimal.format(valorTemperatura));
+    }
+
 }
