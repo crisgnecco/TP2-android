@@ -15,6 +15,7 @@ import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.services.SoaService;
 
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,23 +32,22 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creacion_de_usuario);
     }
 
-        //TODO: buscar fuente
-        public boolean hayConexionAInternet() {
-            boolean connected = false;
-            ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-            if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                //we are connected to a network
-                connected = true;
-            }
-            else{
-                connected = false;
-            }
-            return connected;
+    //TODO: poner como metodo estatico en clase a parte
+    public boolean hayConexionAInternet() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        } else {
+            connected = false;
         }
+        return connected;
+    }
 
 
-        public void registrarUsuario(View view) {
+    public void registrarUsuario(View view) {
 
         //obtener datos de editTexts
         EditText passView = findViewById(R.id.passEditText);
@@ -56,25 +56,27 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         EditText apellidoView = findViewById(R.id.apellidoEditText);
         EditText dniView = findViewById(R.id.dniEditText);
 
-        //Log.d("Debug", passView.getText().toString());
-        //Log.d("Debug", emailView.getText().toString());
-
         String pass = passView.getText().toString();
         String email = emailView.getText().toString();
-
-        //TODO: validar email
-
-        String nombre= nombreView.getText().toString();
+        String nombre = nombreView.getText().toString();
         String apellido = apellidoView.getText().toString();
         String dni = dniView.getText().toString();
 
+        //TODO: validar que DNI sea numerico
         //verificar conexion
-
-        if(!hayConexionAInternet()){
+        if (!hayConexionAInternet()) {
             Toast.makeText(getBaseContext(), "No hay conexion a internet", Toast.LENGTH_LONG).show();
-        }else{
 
-            //conextar a WS
+            //validar email
+        } else if (!Validaciones.esEmailValido(email)) {
+
+            Toast.makeText(getBaseContext(), "Email invalido", Toast.LENGTH_LONG).show();
+
+        } else if(!Validaciones.soloContieneNumeros(dni)){
+
+            Toast.makeText(getBaseContext(), "El Dni debe contener solo numeros", Toast.LENGTH_LONG).show();
+
+        }else{
             registrar(nombre, apellido, dni, email, pass);
         }
     }
@@ -83,19 +85,19 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
         SoaRequest request = new SoaRequest();
 
+        //Para Test
         //request.setName("Cris");
         //request.setLastname("Gnecco");
         // request.setDni(40024360);
         //request.setEmail(email);
-          request.setDni(40024360);
+        //request.setDni(40024360);
         //request.setEmail("cris.gneccoxd@gmail.com")
         //request.setPassword("miercoles1");
 
         request.setEnv("TEST");
         request.setName(nombre);
         request.setLastname(apellido);
-        //TODO: arreglar
-        //request.setDni(Long.getLong(dni));
+        request.setDni(Long.parseLong(dni));
         request.setEmail(email);
         request.setPassword(pass);
         request.setCommission(3900);
@@ -116,14 +118,15 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
             public void onResponse(Call<SoaResponse> call, Response<SoaResponse> response) {
 
                 //verifico si el code esta 200-300
-                    if(response.isSuccessful()){
-                        Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName() , Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
 
-                        token = response.body().getToken();
+                    token = response.body().getToken();
 
-                    }else{
-                        //Toast.makeText(getBaseContext(), "Error en registro: " +response.body().getSuccess() , Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    //TODO: que errores vienen por aca?
+                    //Toast.makeText(getBaseContext(), "Error en registro: " +response.body().getSuccess() , Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -131,7 +134,5 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 Log.e("failure", t.getMessage());
             }
         });
-
     }
-
 }
