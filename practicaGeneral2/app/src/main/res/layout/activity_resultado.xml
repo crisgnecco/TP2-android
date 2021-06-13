@@ -38,6 +38,13 @@
         android:textColor="@color/negro" />
 
     <TextView
+        android:id="@+id/resultado"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/negro" />
+
+    <TextView
         android:id="@+id/informacion"
         android:layout_width="match_parent"
         android:layout_height="88dp"

@@ -19,7 +19,7 @@ public class Resultado extends AppCompatActivity {
         setContentView(R.layout.activity_resultado);
         temperatura = findViewById(R.id.tempSalida);
         sintomas = findViewById(R.id.sintomas);
-        resultado = findViewById(R.id.titulo);
+        resultado = findViewById(R.id.resultado);
         informacion = findViewById(R.id.informacion);
 
         Intent intent=getIntent();
