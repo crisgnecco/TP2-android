@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Resultado">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:text="Resultado"
+        android:textColor="@color/negro"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tempSalida"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/negro" />
+
+    <TextView
+        android:id="@+id/labelSintomas"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:text="Sus sintomas:"
+        android:textColor="@color/negro" />
+
+    <TextView
+        android:id="@+id/sintomas"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:textColor="@color/negro" />
+
+    <TextView
+        android:id="@+id/informacion"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/negro" />
+
+</LinearLayout>
