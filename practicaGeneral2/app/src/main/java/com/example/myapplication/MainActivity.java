@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(getBaseContext(), "Patron correcto!", Toast.LENGTH_SHORT).show();
 
-                    intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
+                    intent = new Intent(getBaseContext(), LoginActivity.class);//intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
+                    
                     startActivity(intent);
 
                 } else {
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }*/
-
 
     public String getEstadoBateria() {
 

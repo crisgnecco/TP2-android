@@ -30,6 +30,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creacion_de_usuario);
     }
 
+
     public boolean hayConexionAInternet() {
         boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -109,7 +110,10 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         SoaService soaService = retrofit.create(SoaService.class);
         Call<SoaResponse> call = soaService.register(request);
 
+        /**Creacion de usr*/
+        //llamamos con enqueue para ejecutar de forma asincronica.
         /** Creacion de usuario: llamamos con enqueue para ejecutar de forma asincronica. */
+
         call.enqueue(new Callback<SoaResponse>() {
             @Override
             public void onResponse(Call<SoaResponse> call, Response<SoaResponse> response) {
@@ -117,7 +121,6 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
-
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
                 } else {
                     Log.e("failure",response.message());
