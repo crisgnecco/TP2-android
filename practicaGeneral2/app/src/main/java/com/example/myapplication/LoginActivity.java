@@ -92,13 +92,17 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Bienvenido: ", Toast.LENGTH_LONG).show();
 
                     //TODO: aca cambiar por la activity de MAxi
-                    Intent intent = new Intent(getBaseContext(), MenuPrincipalActivity.class);
+                    //Intent intent = new Intent(getBaseContext(), LecturaSensores.class);
 
                     token = response.body().getToken();
                     tokenRefresh = response.body().getToken_refresh();
 
-                    intent.putExtra("token", token);
-                    intent.putExtra("token_refresh", tokenRefresh);
+                    //para probar Login
+                    //intent.putExtra("token", token);
+                    //intent.putExtra("token_refresh", tokenRefresh);
+                    //startActivity(intent);
+
+                    Intent intent = new Intent(LoginActivity.this, LecturaSensores.class);
                     startActivity(intent);
 
                 } else {

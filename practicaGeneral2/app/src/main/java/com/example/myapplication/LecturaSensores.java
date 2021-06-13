@@ -37,7 +37,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lectura_sensores);
 
         temperatura = findViewById(R.id.temperatura);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
