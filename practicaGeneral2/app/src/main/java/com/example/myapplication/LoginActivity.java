@@ -90,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Bienvenido: ", Toast.LENGTH_LONG).show();
+
+                    //TODO: aca cambiar por la activity de MAxi
                     Intent intent = new Intent(getBaseContext(), MenuPrincipalActivity.class);
 
                     token = response.body().getToken();
@@ -100,8 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 } else {
-                    //TODO: que errores vienen por aca?
-                    Toast.makeText(getBaseContext(), "Error en registro: "  , Toast.LENGTH_LONG).show();
+                    Log.e("failure",response.message());
                 }
             }
 

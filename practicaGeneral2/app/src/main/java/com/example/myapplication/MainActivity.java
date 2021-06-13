@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(getBaseContext(), "Patron correcto!", Toast.LENGTH_SHORT).show();
 
-                    intent = new Intent(getBaseContext(), LoginActivity.class);//intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
+                    intent = new Intent(getBaseContext(), LoginActivity.class);
                     
                     startActivity(intent);
 
@@ -73,16 +73,6 @@ public class MainActivity extends AppCompatActivity {
         mPatternLockView.addPatternLockListener(mPatternLockViewListener);
     }
 
-
-    /*
-    public void siguienteActivity(View view){
-
-        //starts another activity with intent
-        Intent intent = new Intent(this, CreacionDeUsuarioActivity.class);
-
-        startActivity(intent);
-
-    }*/
 
     public String getEstadoBateria() {
 

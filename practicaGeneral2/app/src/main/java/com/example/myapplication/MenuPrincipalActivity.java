@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+//TODO: revisar si hay q borrarlo
 public class MenuPrincipalActivity extends AppCompatActivity {
 
     @Override
