@@ -15,6 +15,7 @@ import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.services.SoaService;
 
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,8 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
-    String token;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,62 +31,74 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
     }
 
 
-
-        public boolean hayConexionAInternet() {
-            boolean connected = false;
-            ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-            if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                //we are connected to a network
-                connected = true;
-            }
-            else{
-                connected = false;
-            }
-            return connected;
+    public boolean hayConexionAInternet() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        } else {
+            connected = false;
         }
+        return connected;
+    }
 
 
-        public void registrarUsuario(View view) {
+    public void registrarUsuario(View view) {
 
         //obtener datos de editTexts
         EditText passView = findViewById(R.id.passEditText);
         EditText emailView = findViewById(R.id.emailEditText);
-
-
-        //Log.d("Debug", passView.getText().toString());
-        //Log.d("Debug", emailView.getText().toString());
+        EditText nombreView = findViewById(R.id.nombreEditText);
+        EditText apellidoView = findViewById(R.id.apellidoEditText);
+        EditText dniView = findViewById(R.id.dniEditText);
 
         String pass = passView.getText().toString();
         String email = emailView.getText().toString();
+        String nombre = nombreView.getText().toString();
+        String apellido = apellidoView.getText().toString();
+        String dni = dniView.getText().toString();
 
-        //verificar conexion
 
-        if(!hayConexionAInternet()){
+        /**Validaciones de conexion y campos EMAIl, DNI, PASS*/
+
+        if (!hayConexionAInternet()) {
             Toast.makeText(getBaseContext(), "No hay conexion a internet", Toast.LENGTH_LONG).show();
-        }else{
 
-            //conextar a WS
-            registrar(email, pass);
+        } else if (!Validaciones.esEmailValido(email)) {
+            Toast.makeText(getBaseContext(), "Email invalido", Toast.LENGTH_LONG).show();
 
-            //hacer POST de datos de usuario para registrarlo
+        } else if (!Validaciones.soloContieneNumeros(dni)) {
+            Toast.makeText(getBaseContext(), "El Dni debe contener solo numeros", Toast.LENGTH_LONG).show();
+
+        } else if (!Validaciones.esPasswordValida(pass)) {
+            Toast.makeText(getBaseContext(), "Contrasenia debe ser de al menos 8 car", Toast.LENGTH_LONG).show();
+
+        } else {
+            registrar(nombre, apellido, dni, email, pass);
         }
     }
 
-    private void registrar(String email, String pass) {
-
+    private void registrar(String nombre, String apellido, String dni, String email, String pass) {
 
         SoaRequest request = new SoaRequest();
 
-        request.setEnv("TEST");
-        request.setName("Cris");
-        request.setLastname("Gnecco");
+        //Para Test
+        //request.setName("Cris");
+        //request.setLastname("Gnecco");
+        // request.setDni(40024360);
+        //request.setEmail(email);
+        //request.setDni(40024360);
+        //request.setEmail("cris.gneccoxd@gmail.com")
+        //request.setPassword("miercoles1");
 
-        request.setDni(40024360);
+        request.setEnv("TEST");
+        request.setName(nombre);
+        request.setLastname(apellido);
+        request.setDni(Long.parseLong(dni));
         request.setEmail(email);
-        //request.setEmail("cris.gneccoxd@gmail.com");
         request.setPassword(pass);
-        request.setPassword("miercoles1");
         request.setCommission(3900);
         request.setGroup(7);
 
@@ -101,22 +112,19 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
         /**Creacion de usr*/
         //llamamos con enqueue para ejecutar de forma asincronica.
+        /** Creacion de usuario: llamamos con enqueue para ejecutar de forma asincronica. */
+
         call.enqueue(new Callback<SoaResponse>() {
             @Override
             public void onResponse(Call<SoaResponse> call, Response<SoaResponse> response) {
 
                 //verifico si el code esta 200-300
-                    if(response.isSuccessful()){
-                        Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName() , Toast.LENGTH_LONG).show();
-
-                        token = response.body().getToken();
-
-                    }else{
-
-                        //TODO: ver cuando pones params incorrectos(ej, mail sin @) y como manejarlo
-                        //Toast.makeText(getBaseContext(), "Error en registro: " +response.body().getSuccess() , Toast.LENGTH_LONG).show();
-
-                    }
+                if (response.isSuccessful()) {
+                    Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
+                //Aca entraria si hay errores en el request, por eso se validan en campos de UI
+                } else {
+                    Log.e("failure",response.message());
+                }
             }
 
             @Override
@@ -124,9 +132,5 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 Log.e("failure", t.getMessage());
             }
         });
-
-
-
     }
-
 }
