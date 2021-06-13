@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myapplication.dto.SoaRequest;
-import com.example.myapplication.dto.SoaResponse;
+import com.example.myapplication.dto.SoaRequestLogin;
+import com.example.myapplication.dto.SoaResponseLogin;
 import com.example.myapplication.services.SoaService;
 
 import retrofit2.Call;
@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     String token;
+    String tokenRefresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +60,18 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "No hay conexion a internet", Toast.LENGTH_LONG).show();
 
             //validar email
-        } else{
+        }else{
+            if(esValido(emailView, passView))
             Ingresar( email, pass);
         }
     }
 
     private void Ingresar(String email, String pass) {
 
-        SoaRequest request = new SoaRequest();
+        SoaRequestLogin requestLogin = new SoaRequestLogin();
 
-        request.setEmail(email);
-        request.setPassword(pass);
+        requestLogin.setEmail(email);
+        requestLogin.setPassword(pass);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://so-unlam.net.ar/api/")
@@ -77,19 +79,25 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         SoaService soaService = retrofit.create(SoaService.class);
-        Call<SoaResponse> call = soaService.ingresar(request);
+        Call<SoaResponseLogin> call = soaService.ingresar(requestLogin);
 
         /**Creacion de usr*/
         //llamamos con enqueue para ejecutar de forma asincronica.
-        call.enqueue(new Callback<SoaResponse>() {
+        call.enqueue(new Callback<SoaResponseLogin>() {
             @Override
-            public void onResponse(Call<SoaResponse> call, Response<SoaResponse> response) {
+            public void onResponse(Call<SoaResponseLogin> call, Response<SoaResponseLogin> response) {
 
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Bienvenido: ", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getBaseContext(), MenuPrincipalActivity.class);
 
                     token = response.body().getToken();
+                    tokenRefresh = response.body().getToken_refresh();
+
+                    intent.putExtra("token", token);
+                    intent.putExtra("token_refresh", tokenRefresh);
+                    startActivity(intent);
 
                 } else {
                     //TODO: que errores vienen por aca?
@@ -98,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SoaResponse> call, Throwable t) {
+            public void onFailure(Call<SoaResponseLogin> call, Throwable t) {
                 Log.e("failure", t.getMessage());
             }
         });
@@ -108,5 +116,23 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent;
         intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
         startActivity(intent);
+    }
+
+    public boolean esValido(EditText email, EditText password){
+        String campEmail =  email.getText().toString();
+        String campPass = password.getText().toString();
+        boolean valido = true;
+
+        if(campEmail.isEmpty()){
+            email.setError("Debe ingresar su E-mail para iniciar Sesion");
+            valido = false;
+        }else if(!Validaciones.esEmailValido(campEmail)) {
+            email.setError("Email Invalido");
+        }
+        if(campPass.isEmpty() || campPass.length()<8){
+            password.setError("Campo password INCORRECTO, recuerde debe ingresar 8 caracteres o mas");
+            valido = false;
+        }
+        return valido;
     }
 }
