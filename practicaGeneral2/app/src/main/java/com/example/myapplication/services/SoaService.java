@@ -13,6 +13,5 @@ public interface SoaService {
     @POST("api/register")
     Call<SoaResponse> register (@Body SoaRequest request);
 
-    //aca agregaria otro metodo para logear y para registrarEvento
 
 }

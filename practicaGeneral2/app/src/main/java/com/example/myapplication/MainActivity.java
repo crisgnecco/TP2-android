@@ -23,31 +23,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Log.d(stateTag, "The onCrate() event");
 
         TextView msgTextView = findViewById(R.id.textView);
-        msgTextView.setText(getEStadoBateria());
-
+        msgTextView.setText(getEstadoBateria());
 
 
         /** Patron de desbloqueo*/
-
         final PatternLockView mPatternLockView = findViewById(R.id.pattern_lock_view);
 
         PatternLockViewListener mPatternLockViewListener = new PatternLockViewListener() {
 
             Intent intent;
+
             @Override
             public void onStarted() {
             }
 
-            @Override
             public void onProgress(List<PatternLockView.Dot> progressPattern) {
-                Log.d(getClass().getName(), "Pattern progress: " +
-                        PatternLockUtils.patternToString(mPatternLockView, progressPattern));
+                //Log.d(getClass().getName(), "Pattern progress: " +
+                //        PatternLockUtils.patternToString(mPatternLockView, progressPattern));
 
             }
-
 
             /**Se compara el patron completo con un patron predefinido autenticar.*/
             @Override
@@ -55,22 +51,21 @@ public class MainActivity extends AppCompatActivity {
 
                 String patronActual = PatternLockUtils.patternToString(mPatternLockView, pattern);
 
-                //TODO: ver si se puede agregar como constante en R.string
-                if(patronActual.equals(String.format("04876"))){
+                if (patronActual.equals(String.format("04876"))) {
 
-                    Toast.makeText(getBaseContext(),"Patron correcto!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Patron correcto!", Toast.LENGTH_SHORT).show();
 
                     intent = new Intent(getBaseContext(), CreacionDeUsuarioActivity.class);
                     startActivity(intent);
 
-                }else{
-                    Toast.makeText(getBaseContext(),"Patron incorrecto!!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Patron incorrecto!!!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCleared() {
-                Log.d(getClass().getName(), "Pattern has been cleared");
+                //Log.d(getClass().getName(), "Pattern has been cleared");
             }
         };
 
@@ -78,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
     public void siguienteActivity(View view){
 
         //starts another activity with intent
@@ -85,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-    }
+    }*/
 
 
-    public String getEStadoBateria(){
+    public String getEstadoBateria() {
 
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = getApplicationContext().registerReceiver(null, ifilter);
@@ -97,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         float batteryPct = level * 100 / (float) scale;
 
-        return "la bateria esta en " + batteryPct + "%";
-
-        //Toast.makeText(getApplicationContext(), "la bateria esta en " + batteryPct + "%", Toast.LENGTH_LONG).show();
+        return "La bateria esta en " + batteryPct + "%";
     }
 }
