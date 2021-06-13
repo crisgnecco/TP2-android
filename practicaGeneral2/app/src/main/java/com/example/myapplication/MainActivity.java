@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         msgTextView.setText(getEstadoBateria());
 
 
-        //TODO: buscar fuente de esto
         /** Patron de desbloqueo*/
         final PatternLockView mPatternLockView = findViewById(R.id.pattern_lock_view);
 
@@ -85,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
-    //TODO: buscar fuente de esto
     public String getEstadoBateria() {
 
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
