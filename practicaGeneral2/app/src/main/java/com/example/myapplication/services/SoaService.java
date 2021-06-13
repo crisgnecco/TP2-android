@@ -23,6 +23,4 @@ public interface SoaService {
     @POST("api/event")
     Call<SoaResponseLogin> registrarEvento (@Header ("token") String token,@Body SoaRequestEvent requestEvent);
 
-    //aca agregaria otro metodo para logear y para registrarEvento
-
 }

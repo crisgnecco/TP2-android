@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--NOTA: usesCleartextTraffic es para evitar "not permitted by network security policy" en comunic con WS -->
 
     <application
         android:allowBackup="true"
@@ -13,10 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MenuPrincipalActivity"></activity>
+
+       <activity android:name=".MenuPrincipalActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreacionDeUsuarioActivity" />
         <activity android:name=".LecturaSensores" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

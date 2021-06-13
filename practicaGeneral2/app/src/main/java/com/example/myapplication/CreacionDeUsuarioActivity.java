@@ -24,15 +24,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
-    String token;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creacion_de_usuario);
     }
 
-    //TODO: poner como metodo estatico en clase a parte
+
     public boolean hayConexionAInternet() {
         boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -62,21 +60,22 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         String apellido = apellidoView.getText().toString();
         String dni = dniView.getText().toString();
 
-        //TODO: validar que DNI sea numerico
-        //verificar conexion
+
+        /**Validaciones de conexion y campos EMAIl, DNI, PASS*/
+
         if (!hayConexionAInternet()) {
             Toast.makeText(getBaseContext(), "No hay conexion a internet", Toast.LENGTH_LONG).show();
 
-            //validar email
         } else if (!Validaciones.esEmailValido(email)) {
-
             Toast.makeText(getBaseContext(), "Email invalido", Toast.LENGTH_LONG).show();
 
-        } else if(!Validaciones.soloContieneNumeros(dni)){
-
+        } else if (!Validaciones.soloContieneNumeros(dni)) {
             Toast.makeText(getBaseContext(), "El Dni debe contener solo numeros", Toast.LENGTH_LONG).show();
 
-        }else{
+        } else if (!Validaciones.esPasswordValida(pass)) {
+            Toast.makeText(getBaseContext(), "Contrasenia debe ser de al menos 8 car", Toast.LENGTH_LONG).show();
+
+        } else {
             registrar(nombre, apellido, dni, email, pass);
         }
     }
@@ -113,6 +112,8 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
         /**Creacion de usr*/
         //llamamos con enqueue para ejecutar de forma asincronica.
+        /** Creacion de usuario: llamamos con enqueue para ejecutar de forma asincronica. */
+
         call.enqueue(new Callback<SoaResponse>() {
             @Override
             public void onResponse(Call<SoaResponse> call, Response<SoaResponse> response) {
@@ -120,12 +121,9 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
-
-                    token = response.body().getToken();
-
+                //Aca entraria si hay errores en el request, por eso se validan en campos de UI
                 } else {
-                    //TODO: que errores vienen por aca?
-                    //Toast.makeText(getBaseContext(), "Error en registro: " +response.body().getSuccess() , Toast.LENGTH_LONG).show();
+                    Log.e("failure",response.message());
                 }
             }
 
