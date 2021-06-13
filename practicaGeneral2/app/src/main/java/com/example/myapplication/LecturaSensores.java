@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -12,77 +13,96 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LecturaSensores extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;
-    private TextView acelerometro;
-    private TextView temperatura;
-    private TextView detectaHorizontal;
-    DecimalFormat dosdecimales = new DecimalFormat("###.###");
+    private EditText temperatura;
+    private float valorTemperatura;
+    private DecimalFormat unDecimal = new DecimalFormat("###.#");
+    private RadioButton sinOlfato, sinGusto, tos, dolorGarganta, faltaAire, dolorCabeza, diarrea, vomito, dolorMuscular;
+    Map<RadioButton,String> sintomasPrioritarios = new HashMap<>();
+    Map<RadioButton,String> sintomasNoPrioritarios = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        acelerometro = findViewById(R.id.acelerometro);
         temperatura = findViewById(R.id.temperatura);
-        detectaHorizontal = findViewById(R.id.detectaHorizontal);
-
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        cargarValoresSensores();
+        sinOlfato = findViewById(R.id.sinOlfatoSI);
+        sinGusto = findViewById(R.id.sinGustoSI);
+        tos = findViewById(R.id.tosSI);
+        dolorGarganta = findViewById(R.id.dolorGargantaSI);
+        faltaAire = findViewById(R.id.faltaAireSI);
+        dolorCabeza = findViewById(R.id.dolorCabezaSI);
+        diarrea = findViewById(R.id.diarreaSI);
+        vomito = findViewById(R.id.vomitoSI);
+        dolorMuscular = findViewById(R.id.dolorMuscularSI);
+
+        sintomasPrioritarios.put(sinOlfato,"Falta de olfato");
+        sintomasPrioritarios.put(sinGusto,"Falta de gusto");
+        sintomasPrioritarios.put(faltaAire,"Falta de aire");
+        sintomasPrioritarios.put(dolorMuscular, "Dolor muscular");
+
+        sintomasNoPrioritarios.put(tos,"Tos");
+        sintomasNoPrioritarios.put(dolorGarganta,"Dolor de garganta");
+        sintomasNoPrioritarios.put(dolorCabeza,"Dolor de cabeza");
+        sintomasNoPrioritarios.put(diarrea,"Diarrea");
+        sintomasNoPrioritarios.put(vomito, "Vomito");
+
+
+        cargarTemperatura();
 
     }
 
     private void registrarSensores(){
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),   SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void quitarSensores(){
         mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-        mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
-    public void iniciarSenseo(View view){
-        registrarSensores();
-    }
-
-    public void finalizarSenseo(View view){
-        quitarSensores();
-    }
 
     @Override
     protected void onPause() {
-        quitarSensores();
+        //quitarSensores();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //registrarSensores();
+        registrarSensores();
     }
 
     @Override
     protected void onRestart() {
-        // registrarSensores();
+        //registrarSensores();
         super.onRestart();
     }
 
     @Override
     protected void onStop() {
-        quitarSensores();
+        // quitarSensores();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        guardarValoresSensores();
         quitarSensores();
         super.onDestroy();
     }
@@ -90,44 +110,27 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        String texto = "";
 
         synchronized (this)
         {
-            Log.d("sensor", event.sensor.getName());
+            Log.d("Acelerometro", String.valueOf(event.values[0]));
 
             switch(event.sensor.getType())
             {
 
                 case Sensor.TYPE_ACCELEROMETER :
-                    texto += "Acelerometro:\n";
-                    texto += "x: " + dosdecimales.format(event.values[0]) + " m/seg2 \n";
-                    texto += "y: " + dosdecimales.format(event.values[1]) + " m/seg2 \n";
-                    texto += "z: " + dosdecimales.format(event.values[2]) + " m/seg2 \n";
-                    acelerometro.setText(texto);
 
-                    if(event.values[0] > 9.5 || event.values[0] < -9.5){
-                        detectaHorizontal.setBackgroundColor(Color.RED);
-                        detectaHorizontal.setText("Celular en horizontal");
-                    }else{
-                        detectaHorizontal.setBackgroundColor(Color.parseColor("#FAFAFA"));
-                        detectaHorizontal.setText("");
-                    }
-
-                    /*
                     if(event.values[0] > 9.5 || event.values[0] < -9.5)
                         Toast.makeText(getApplicationContext(), "Celular en horizontal", Toast.LENGTH_SHORT).show();
-                    */
 
                     break;
 
                 case Sensor.TYPE_LIGHT :
-                    texto += "Temperatura\n";
-                    texto += event.values[0] + " °C \n";
 
-                    temperatura.setText(texto);
+                    valorTemperatura = event.values[0];
+                    mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+
                     break;
-
             }
         }
 
@@ -138,32 +141,69 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     }
 
-    private void cargarValoresSensores(){
-        SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
+    private void cargarTemperatura(){
+        SharedPreferences preferences = getSharedPreferences("temperatura", Context.MODE_PRIVATE);
 
-        String acelerometro = preferences.getString("acelerometro", "No hay valores anteriores");
-        String proximidad = preferences.getString("temperatura", "No hay valores anteriores");
+        String temperatura = preferences.getString("temperatura", "");
 
-        this.acelerometro.setText(acelerometro);
-        this.temperatura.setText(proximidad);
+        this.temperatura.setText(temperatura);
     }
 
-    private void guardarValoresSensores(){
+    private void guardarTemperatura(){
 
-        SharedPreferences preferences = getSharedPreferences("valoresSensores", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("temperatura", Context.MODE_PRIVATE);
 
-        String acelerometro = this.acelerometro.getText().toString();
-        String proximidad = this.temperatura.getText().toString();
+        String temperatura = this.temperatura.getText().toString();
 
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putString("acelerometro", acelerometro);
-        editor.putString("temperatura", proximidad);
-
-        System.out.println(acelerometro);
-        System.out.println(proximidad);
+        editor.putString("temperatura", temperatura);
 
         editor.apply();
 
     }
+
+    public void procesarFomulario(View view){
+
+        boolean resultado = false; //Indica si tiene covid o no
+        String sintomas = ""; //Si no tiene sintomas no se llena, en caso contrario se llena con los sintomas
+        List<RadioButton> listaRB = new ArrayList<>();
+        int valorTemperatura = Integer.parseInt(this.temperatura.getText().toString());
+
+        Intent intent = new Intent(LecturaSensores.this,Resultado.class);
+        intent.putExtra("temperatura",this.temperatura.getText().toString());
+
+        guardarTemperatura();
+
+        if(valorTemperatura >= 38){
+            resultado = true;
+            sintomas += "Temperatura alta\n";
+        }
+
+        for (Map.Entry<RadioButton,String> sintoma : sintomasPrioritarios.entrySet()) {
+            if(sintoma.getKey().isChecked()){
+                resultado = true;
+                sintomas += sintoma.getValue() + "\n";
+            }
+        }
+
+        for (Map.Entry<RadioButton,String> sintoma : sintomasNoPrioritarios.entrySet()){
+            if(sintoma.getKey().isChecked()){
+                sintomas += sintoma.getValue() + "\n";
+            }
+        }
+
+        intent.putExtra("resultado",resultado);
+        intent.putExtra("sintomas",sintomas);
+
+        Toast.makeText(getApplicationContext(), "Gracias por llenar el formulario", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
+
+    }
+
+    public void tomarTemperatura(View view){
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
+        temperatura.setText(unDecimal.format(valorTemperatura));
+    }
+
 }
