@@ -146,6 +146,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
         String temperatura = preferences.getString("temperatura", "");
 
+        // this.temperatura.setHint(temperatura); //Si pongo asi despues no puedo recuperar la temperatura con this.temperatura.getText().toString()
         this.temperatura.setText(temperatura);
     }
 
@@ -168,7 +169,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         boolean resultado = false; //Indica si tiene covid o no
         String sintomas = ""; //Si no tiene sintomas no se llena, en caso contrario se llena con los sintomas
         List<RadioButton> listaRB = new ArrayList<>();
-        int valorTemperatura = Integer.parseInt(this.temperatura.getText().toString());
+        String auxTemperatura = this.temperatura.getText().toString().replace(",","."); //Por si se pone con , o . poder comparar por temperatura >= 38
+        double valorTemperatura = Double.parseDouble(auxTemperatura);
 
         Intent intent = new Intent(LecturaSensores.this,Resultado.class);
         intent.putExtra("temperatura",this.temperatura.getText().toString());
