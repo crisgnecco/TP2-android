@@ -28,7 +28,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     private SensorManager mSensorManager;
     private EditText temperatura;
-    private float valorTemperatura;
+    private double valorTemperatura;
+
     private DecimalFormat unDecimal = new DecimalFormat("###.#");
     private RadioButton sinOlfato, sinGusto, tos, dolorGarganta, faltaAire, dolorCabeza, diarrea, vomito, dolorMuscular;
     Map<RadioButton,String> sintomasPrioritarios = new HashMap<>();
@@ -127,8 +128,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
                 case Sensor.TYPE_LIGHT :
 
-                    valorTemperatura = event.values[0];
                     mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT));
+                    temperatura.setText(unDecimal.format(event.values[0]));
 
                     break;
             }
@@ -144,17 +145,18 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
     private void cargarTemperatura(){
         SharedPreferences preferences = getSharedPreferences("temperatura", Context.MODE_PRIVATE);
 
-        String temperatura = preferences.getString("temperatura", "");
+        String temperatura = preferences.getString("temperatura", "").replace(",","."); //Paso lo que este en , como .
 
-        // this.temperatura.setHint(temperatura); //Si pongo asi despues no puedo recuperar la temperatura con this.temperatura.getText().toString()
-        this.temperatura.setText(temperatura);
+        valorTemperatura = Double.parseDouble(temperatura); //lo paso a double
+
+        this.temperatura.setHint(temperatura + " °C");
     }
 
     private void guardarTemperatura(){
 
         SharedPreferences preferences = getSharedPreferences("temperatura", Context.MODE_PRIVATE);
 
-        String temperatura = this.temperatura.getText().toString();
+        String temperatura = String.valueOf(valorTemperatura);
 
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -168,12 +170,16 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
         boolean resultado = false; //Indica si tiene covid o no
         String sintomas = ""; //Si no tiene sintomas no se llena, en caso contrario se llena con los sintomas
-        List<RadioButton> listaRB = new ArrayList<>();
-        String auxTemperatura = this.temperatura.getText().toString().replace(",","."); //Por si se pone con , o . poder comparar por temperatura >= 38
-        double valorTemperatura = Double.parseDouble(auxTemperatura);
+        String auxTemperatura = this.temperatura.getText().toString().replace(",", ".");
 
         Intent intent = new Intent(LecturaSensores.this,Resultado.class);
-        intent.putExtra("temperatura",this.temperatura.getText().toString());
+
+        if(!auxTemperatura.isEmpty()) {
+            valorTemperatura = Double.parseDouble(auxTemperatura);
+            intent.putExtra("temperatura",auxTemperatura);
+        }else{
+            intent.putExtra("temperatura",String.valueOf(valorTemperatura));
+        }
 
         guardarTemperatura();
 
@@ -205,7 +211,6 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     public void tomarTemperatura(View view){
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
-        temperatura.setText(unDecimal.format(valorTemperatura));
     }
 
 }

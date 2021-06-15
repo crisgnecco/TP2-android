@@ -28,7 +28,7 @@ public class Resultado extends AppCompatActivity {
         Boolean valorResultado= extras.getBoolean("resultado");
         String sintomasPaciente= extras.getString("sintomas");
 
-        temperatura.setText("Su temperatura es: " + valorTemperatura);
+        temperatura.setText("Su temperatura es: " + valorTemperatura + " °C");
 
         sintomas.setText(sintomasPaciente);
 
