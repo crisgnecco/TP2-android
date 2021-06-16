@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -62,7 +60,6 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         sintomasNoPrioritarios.put(dolorCabeza,"Dolor de cabeza");
         sintomasNoPrioritarios.put(diarrea,"Diarrea");
         sintomasNoPrioritarios.put(vomito, "Vomito");
-
 
         cargarTemperatura();
 

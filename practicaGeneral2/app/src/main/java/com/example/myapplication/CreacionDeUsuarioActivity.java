@@ -13,8 +13,13 @@ import android.widget.Toast;
 
 import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
+import com.example.myapplication.dto.SoaResponseEvent;
 import com.example.myapplication.services.SoaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,7 +98,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         //request.setEmail("cris.gneccoxd@gmail.com")
         //request.setPassword("miercoles1");
 
-        request.setEnv("TEST");
+        request.setEnv("PROD");
         request.setName(nombre);
         request.setLastname(apellido);
         request.setDni(Long.parseLong(dni));
@@ -122,8 +127,14 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
-                } else {
-                    Log.e("failure",response.message());
+                } else if(response.body() == null){
+                    Gson gson = new Gson();
+                    Type type =  new TypeToken<SoaResponse>(){}.getType();
+                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
+                    Log.i("mensajeError",errorResponse.getMsg());
+                }else{
+                    Log.i("mensajeFallo","fallo");
                 }
             }
 

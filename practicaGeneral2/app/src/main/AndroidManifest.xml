@@ -16,6 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+        <service android:name=".ServiceRegistroEvento" android:exported="false"></service>
+        <service android:name=".ServiceActualizacionToken" android:exported="false"></service>
         <activity android:name=".MenuPrincipalActivity"></activity>
         <activity android:name=".Resultado"></activity>
         <activity android:name=".LoginActivity" />

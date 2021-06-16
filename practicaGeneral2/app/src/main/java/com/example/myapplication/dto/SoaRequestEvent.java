@@ -3,16 +3,16 @@ package com.example.myapplication.dto;
 public class SoaRequestEvent {
 
     private String env;
-    private String type_evants;
+    private String type_events;
     private String description;
 
 
-    public String getType_evants() {
-        return type_evants;
+    public String getType_events() {
+        return type_events;
     }
 
-    public void setType_evants(String type_evants) {
-        this.type_evants = type_evants;
+    public void setType_events(String type_events) {
+        this.type_events = type_events;
     }
 
     public String getDescription() {

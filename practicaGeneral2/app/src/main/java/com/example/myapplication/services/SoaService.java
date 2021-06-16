@@ -4,12 +4,14 @@ import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaRequestEvent;
 import com.example.myapplication.dto.SoaRequestLogin;
 import com.example.myapplication.dto.SoaResponse;
+import com.example.myapplication.dto.SoaResponseEvent;
 import com.example.myapplication.dto.SoaResponseLogin;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface SoaService {
 
@@ -21,6 +23,9 @@ public interface SoaService {
     Call<SoaResponseLogin> ingresar (@Body SoaRequestLogin requestLogin);
 
     @POST("api/event")
-    Call<SoaResponseLogin> registrarEvento (@Header ("token") String token,@Body SoaRequestEvent requestEvent);
+    Call<SoaResponseEvent> registrarEvento (@Header ("token") String token, @Body SoaRequestEvent requestEvent);
+
+    @PUT("api/refresh")
+    Call<SoaResponseLogin> actualizarToken (@Header("token_refresh") String token_refresh);
 
 }

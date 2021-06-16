@@ -12,9 +12,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.dto.ConstanteToken;
 import com.example.myapplication.dto.SoaRequestLogin;
+import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.dto.SoaResponseLogin;
 import com.example.myapplication.services.SoaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,10 +32,13 @@ public class LoginActivity extends AppCompatActivity {
 
     String token;
     String tokenRefresh;
+    Intent serviceRegistroEvento;
+    Intent serviceActualizarToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
     }
 
     //TODO: poner como metodo estatico en clase a parte
@@ -89,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
-                    Toast.makeText(getBaseContext(), "Bienvenido: ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Bienvenido ", Toast.LENGTH_LONG).show();
 
                     //TODO: aca cambiar por la activity de MAxi
                     //Intent intent = new Intent(getBaseContext(), LecturaSensores.class);
@@ -97,15 +106,28 @@ public class LoginActivity extends AppCompatActivity {
                     token = response.body().getToken();
                     tokenRefresh = response.body().getToken_refresh();
 
-                    //para probar Login
-                    //intent.putExtra("token", token);
-                    //intent.putExtra("token_refresh", tokenRefresh);
-                    //startActivity(intent);
+                    ServiceRegistroEvento.agregarEvento("Ingreso por Login", "Login");
+
+                    serviceRegistroEvento = new Intent(LoginActivity.this, ServiceRegistroEvento.class);
+                    startService(serviceRegistroEvento);
+
+                    //serviceActualizarToken = new Intent(LoginActivity.this, ServiceActualizacionToken.class);
+                    //startService(serviceActualizarToken);
+
+                    ConstanteToken.setToken(token);
+                    ConstanteToken.setToken_refresh(tokenRefresh);
 
                     Intent intent = new Intent(LoginActivity.this, LecturaSensores.class);
                     startActivity(intent);
 
-                } else {
+                } else if(response.body() == null){
+                    Gson gson = new Gson();
+                    Type type =  new TypeToken<SoaResponse>(){}.getType();
+                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+
+                    Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
+                    Log.i("mensajeError",errorResponse.getMsg());
+                }else {
                     Log.e("failure",response.message());
                 }
             }
