@@ -12,15 +12,24 @@ import static java.lang.Thread.sleep;
 public class ServiceActualizacionToken extends IntentService {
 
     static boolean enEjecucion = true;
+    private int tiempo = 0;
+    private int tiempoInicio=0;
+
     public ServiceActualizacionToken() {
         super("ServiceActualizacionToken");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        tiempoInicio = (int) System.currentTimeMillis();
         while (enEjecucion){
-            RegistroEvento actualizacionToken = new RegistroEvento();
-            actualizacionToken.actualizarToken();
+            tiempo = (int)System.currentTimeMillis() - tiempoInicio;
+            if(tiempo > 360000){
+                RegistroEvento actualizacionToken = new RegistroEvento();
+                actualizacionToken.actualizarToken();
+                tiempoInicio = (int) System.currentTimeMillis();
+            }
+
             try{
                 sleep(1000);
             } catch (InterruptedException e) {
@@ -28,7 +37,8 @@ public class ServiceActualizacionToken extends IntentService {
             }
         }
     }
-    public void detener(){
+
+    public static void detener(){
         enEjecucion = false;
     }
 }

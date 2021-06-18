@@ -32,6 +32,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
     Map<RadioButton,String> sintomasPrioritarios = new HashMap<>();
     Map<RadioButton,String> sintomasNoPrioritarios = new HashMap<>();
 
+    Intent serviceActualizarToken;
+    Intent serviceRegistrarEvento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,9 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         sintomasNoPrioritarios.put(vomito, "Vomito");
 
         cargarTemperatura();
+
+         serviceActualizarToken = new Intent(this, ServiceActualizacionToken.class);
+        startService(serviceActualizarToken);
 
     }
 
@@ -200,6 +205,9 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     public void tomarTemperatura(View view){
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
+        ServiceRegistroEvento.agregarEvento("temperatura tomada", "temperatura");
+        serviceRegistrarEvento = new Intent(LecturaSensores.this, ServiceRegistroEvento.class);
+        startService(serviceRegistrarEvento);
         temperatura.setText(unDecimal.format(valorTemperatura));
     }
 

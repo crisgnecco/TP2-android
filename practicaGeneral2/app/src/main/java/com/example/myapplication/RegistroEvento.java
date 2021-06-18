@@ -28,7 +28,7 @@ public class RegistroEvento {
     }
     public void registrarEvento(String descripcion, String type_events){
         SoaRequestEvent requestEvent = new SoaRequestEvent();
-        requestEvent.setEnv("TEST");
+        requestEvent.setEnv("PROD");
         requestEvent.setDescription(descripcion);
         requestEvent.setType_events(type_events);
 
@@ -39,7 +39,7 @@ public class RegistroEvento {
 
         SoaService soaService = retrofit.create(SoaService.class);
         String token = ConstanteToken.getToken();
-        Call<SoaResponseEvent> responseEventCall = soaService.registrarEvento(token,requestEvent);
+        Call<SoaResponseEvent> responseEventCall = soaService.registrarEvento("Bearer "+ token,requestEvent);
         responseEventCall.enqueue(new Callback<SoaResponseEvent>() {
             @Override
             public void onResponse(Call<SoaResponseEvent> call, Response<SoaResponseEvent> response) {
@@ -69,7 +69,7 @@ public class RegistroEvento {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SoaService soaService = retrofit.create(SoaService.class);
-        Call<SoaResponseLogin> responseActualizacionToken = soaService.actualizarToken(ConstanteToken.getToken_refresh());
+        Call<SoaResponseLogin> responseActualizacionToken = soaService.actualizarToken("Bearer "+ConstanteToken.getToken_refresh());
         responseActualizacionToken.enqueue(new Callback<SoaResponseLogin>() {
             @Override
             public void onResponse(Call<SoaResponseLogin> call, Response<SoaResponseLogin> response) {

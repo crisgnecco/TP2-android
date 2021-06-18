@@ -63,7 +63,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         String email = emailView.getText().toString();
         String nombre = nombreView.getText().toString();
         String apellido = apellidoView.getText().toString();
-        String dni = dniView.getText().toString();
+        String  dni = dniView.getText().toString();
 
 
         /**Validaciones de conexion y campos EMAIl, DNI, PASS*/

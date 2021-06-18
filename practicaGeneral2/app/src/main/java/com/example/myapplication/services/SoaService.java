@@ -23,9 +23,9 @@ public interface SoaService {
     Call<SoaResponseLogin> ingresar (@Body SoaRequestLogin requestLogin);
 
     @POST("api/event")
-    Call<SoaResponseEvent> registrarEvento (@Header ("token") String token, @Body SoaRequestEvent requestEvent);
+    Call<SoaResponseEvent> registrarEvento (@Header ("Authorization") String token, @Body SoaRequestEvent requestEvent);
 
     @PUT("api/refresh")
-    Call<SoaResponseLogin> actualizarToken (@Header("token_refresh") String token_refresh);
+    Call<SoaResponseLogin> actualizarToken (@Header("Authorization") String token_refresh);
 
 }

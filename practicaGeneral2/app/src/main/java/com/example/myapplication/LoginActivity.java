@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //ServiceActualizacionToken.detener();
 
     }
 
@@ -111,8 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                     serviceRegistroEvento = new Intent(LoginActivity.this, ServiceRegistroEvento.class);
                     startService(serviceRegistroEvento);
 
-                    //serviceActualizarToken = new Intent(LoginActivity.this, ServiceActualizacionToken.class);
-                    //startService(serviceActualizarToken);
+
 
                     ConstanteToken.setToken(token);
                     ConstanteToken.setToken_refresh(tokenRefresh);
