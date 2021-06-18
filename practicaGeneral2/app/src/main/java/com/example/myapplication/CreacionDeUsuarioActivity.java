@@ -14,9 +14,13 @@ import android.widget.Toast;
 import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.services.SoaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -124,10 +128,18 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
-                } else {
+                } else if(response.body() == null){
 
-                    //TODO: ver si se puede traer msj de error
-                    Toast.makeText(getBaseContext(), "El DNI del usuario ya fué registrado", Toast.LENGTH_LONG).show();
+                    Gson gson = new Gson();
+                    Type type =  new TypeToken<SoaResponse>(){}.getType();
+
+                    // uso directo el JSON y lo convierto a SoaResponse
+                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+
+                    Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
+                    Log.i("mensajeError",errorResponse.getMsg());
+                }else{
+                    Log.i("mensajeFallo","fallo");
                 }
             }
 
