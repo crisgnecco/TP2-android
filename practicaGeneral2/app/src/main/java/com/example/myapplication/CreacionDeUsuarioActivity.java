@@ -16,6 +16,8 @@ import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.services.SoaService;
 
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -93,7 +95,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         //request.setEmail("cris.gneccoxd@gmail.com")
         //request.setPassword("miercoles1");
 
-        request.setEnv("TEST");
+        request.setEnv("PROD");
         request.setName(nombre);
         request.setLastname(apellido);
         request.setDni(Long.parseLong(dni));
@@ -123,9 +125,12 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
                 } else {
-                    Log.e("failure",response.message());
+
+                    //TODO: ver si se puede traer msj de error
+                    Toast.makeText(getBaseContext(), "El DNI del usuario ya fué registrado", Toast.LENGTH_LONG).show();
                 }
             }
+
 
             @Override
             public void onFailure(Call<SoaResponse> call, Throwable t) {
