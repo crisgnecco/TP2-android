@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class Resultado extends AppCompatActivity {
+public class ResultadoActivity extends AppCompatActivity {
 
     TextView temperatura;
     TextView sintomas;
@@ -40,7 +40,7 @@ public class Resultado extends AppCompatActivity {
         if (valorResultado) {
             resultado.setText("Tiene una probabilidad alta de tener Covid");
             informacion.setText("Por favor, asista al lugar mas cercano a realizarse el hisopado y siga las recomendaciones sanitarias");
-        } else if (cantidadSintomas >= LecturaSensores.CANT_SINTOMAS) {
+        } else if (cantidadSintomas >= InformeActivity.CANT_SINTOMAS) {
             resultado.setText("Tiene una probabilidad media de tener Covid");
             informacion.setText("Por favor, asista al lugar mas cercano a realizarse el hisopado y siga las recomendaciones sanitarias");
         } else {

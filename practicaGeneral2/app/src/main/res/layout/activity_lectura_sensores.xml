@@ -6,7 +6,7 @@
     android:layout_weight="1"
     android:keepScreenOn="true"
     android:orientation="vertical"
-    tools:context=".LecturaSensores">
+    tools:context=".InformeActivity">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -95,14 +95,18 @@
                     android:id="@+id/sinOlfatoSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:checked="false"
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
+
 
                 <RadioButton
                     android:id="@+id/sinOlfatoNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -128,14 +132,18 @@
                     android:id="@+id/sinGustoSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/sinGustoNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -160,14 +168,18 @@
                     android:id="@+id/tosSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/tosNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -192,14 +204,18 @@
                     android:id="@+id/dolorGargantaSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/dolorGargantaNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -224,14 +240,18 @@
                     android:id="@+id/faltaAireSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/faltaAireNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -256,14 +276,18 @@
                     android:id="@+id/dolorCabezaSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/dolorCabezaNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -288,14 +312,18 @@
                     android:id="@+id/diarreaSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/diarreaNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -320,14 +348,16 @@
                     android:id="@+id/vomitoSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/vomitoNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
             </RadioGroup>
 
             <View
@@ -352,14 +382,16 @@
                     android:id="@+id/dolorMuscularSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/si" />
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
 
                 <RadioButton
                     android:id="@+id/dolorMuscularNO"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
 
             </RadioGroup>
 

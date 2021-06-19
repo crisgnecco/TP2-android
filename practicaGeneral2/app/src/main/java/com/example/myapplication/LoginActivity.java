@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.myapplication.dto.ConstanteToken;
 import com.example.myapplication.dto.ErrorResponse;
 import com.example.myapplication.dto.SoaRequestLogin;
-import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.dto.SoaResponseLogin;
 import com.example.myapplication.services.SoaService;
 import com.google.gson.Gson;
@@ -128,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                     ConstanteToken.setToken(response.body().getToken());
                     ConstanteToken.setToken_refresh(response.body().getToken_refresh());
 
-                    Intent intent = new Intent(LoginActivity.this, LecturaSensores.class);
+                    Intent intent = new Intent(LoginActivity.this, InformeActivity.class);
                     startActivity(intent);
 
                 } else if(response.body() == null){

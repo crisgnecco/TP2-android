@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#009688"
+    android:background="@color/azul"
     tools:context=".MainActivity">
 
 
@@ -14,6 +14,7 @@
         android:layout_height="63dp"
         android:layout_marginBottom="44dp"
         android:text="mostrar bateria"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +28,7 @@
         android:layout_height="63dp"
         android:layout_marginBottom="48dp"
         android:text="Ingrese el patron para desbloquear"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/pattern_lock_view"
         app:layout_constraintEnd_toEndOf="parent"

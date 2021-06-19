@@ -17,12 +17,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class LecturaSensores extends AppCompatActivity implements SensorEventListener {
+public class InformeActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;
     private EditText temperatura;
@@ -42,7 +40,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     /*
      Se define como Map<RadioButton, String> para poder guardar cada radio button como clave y que el valor sea un string el cual
-     se usara para enviarlo a la activity Resultado
+     se usara para enviarlo a la activity ResultadoActivity
     */
 
     Intent serviceActualizarToken;
@@ -187,7 +185,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         String auxTemperatura = this.temperatura.getText().toString().replace(",", ".");
         int contador = 0;
 
-        Intent intent = new Intent(LecturaSensores.this, Resultado.class);
+        Intent intent = new Intent(InformeActivity.this, ResultadoActivity.class);
 
         if (!auxTemperatura.isEmpty()) {
             valorTemperatura = Double.parseDouble(auxTemperatura);
@@ -231,7 +229,7 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
         ServiceRegistroEvento.agregarEvento("temperatura tomada", "temperatura");
         
-        serviceRegistrarEvento = new Intent(LecturaSensores.this, ServiceRegistroEvento.class);
+        serviceRegistrarEvento = new Intent(InformeActivity.this, ServiceRegistroEvento.class);
         startService(serviceRegistrarEvento);
         temperatura.setText(unDecimal.format(valorTemperatura));
     }

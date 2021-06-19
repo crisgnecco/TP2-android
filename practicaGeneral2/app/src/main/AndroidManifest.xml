@@ -19,10 +19,10 @@
         <service android:name=".ServiceRegistroEvento" android:exported="false"></service>
         <service android:name=".ServiceActualizacionToken" android:exported="false"></service>
         <activity android:name=".MenuPrincipalActivity"></activity>
-        <activity android:name=".Resultado"></activity>
+        <activity android:name=".ResultadoActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreacionDeUsuarioActivity" />
-        <activity android:name=".LecturaSensores" />
+        <activity android:name=".InformeActivity" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
