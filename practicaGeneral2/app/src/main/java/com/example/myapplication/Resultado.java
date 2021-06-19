@@ -22,24 +22,29 @@ public class Resultado extends AppCompatActivity {
         resultado = findViewById(R.id.resultado);
         informacion = findViewById(R.id.informacion);
 
-        Intent intent=getIntent();
-        Bundle extras=intent.getExtras();
-        String valorTemperatura= extras.getString("temperatura");
-        Boolean valorResultado= extras.getBoolean("resultado");
-        String sintomasPaciente= extras.getString("sintomas");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String valorTemperatura = extras.getString("temperatura");
+        Boolean valorResultado = extras.getBoolean("resultado");
+        int cantidadSintomas = extras.getInt("cantidad_sintomas_no_prioritarios");
+        String sintomasPaciente = extras.getString("sintomas");
 
         temperatura.setText("Su temperatura es: " + valorTemperatura + " °C");
 
         sintomas.setText(sintomasPaciente);
 
-        if(sintomasPaciente.isEmpty())
+        if (sintomasPaciente.isEmpty())
             sintomas.setText("No posee sintomas");
 
-        if(valorResultado){
-            resultado.setText("Tiene Covid");
-            informacion.setText("Por favor, asista al lugar mas cercano a realizarse el hisopado y sigue las recomendaciones sanitarias");
-        }else{
-            resultado.setText("No tiene COVID");
+        if (valorResultado) {
+            resultado.setText("Tiene una probabilidad alta de tener Covid");
+            informacion.setText("Por favor, asista al lugar mas cercano a realizarse el hisopado y siga las recomendaciones sanitarias");
+        } else if (cantidadSintomas >= LecturaSensores.CANT_SINTOMAS) {
+            resultado.setText("Tiene una probabilidad media de tener Covid");
+            informacion.setText("Por favor, asista al lugar mas cercano a realizarse el hisopado y siga las recomendaciones sanitarias");
+        } else {
+            resultado.setText("No tiene probabilidades de tener Covid");
+            informacion.setText("Siga cuidandose y siga las recomendaciones sanitarias");
         }
 
     }
