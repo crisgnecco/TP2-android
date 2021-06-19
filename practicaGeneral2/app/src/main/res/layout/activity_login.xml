@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/btnIrARegistrar"
-        android:layout_width="271dp"
-        android:layout_height="46dp"
+        android:layout_width="285dp"
+        android:layout_height="45dp"
         android:layout_marginTop="500dp"
         android:layout_marginBottom="600dp"
         android:background="@drawable/secundario"
@@ -55,7 +55,6 @@
         android:paddingBottom="10dp"
         android:ems="10"
         android:hint="Password"
-        android:textColor="@android:color/white"
         android:inputType="textPassword"
         android:background="@drawable/secundario"
         android:backgroundTint="#B6BBC3"
@@ -67,8 +66,8 @@
 
     <Button
         android:id="@+id/btnIngresar"
-        android:layout_width="273dp"
-        android:layout_height="42dp"
+        android:layout_width="285dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="50dp"
         android:onClick="Ingresar"
         android:text="Iniciar Sesion"

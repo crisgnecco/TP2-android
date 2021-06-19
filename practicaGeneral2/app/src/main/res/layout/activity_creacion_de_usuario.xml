@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/dniEditText"
-        android:layout_width="259dp"
+        android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/secundario"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="313dp"
+        android:layout_width="320dp"
         android:layout_height="47dp"
         android:background="@drawable/boton_rounded"
         android:onClick="registrarUsuario"
@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/emailEditText"
-        android:layout_width="311dp"
+        android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/secundario"
@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/passEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginBottom="36dp"
         android:ems="10"
@@ -80,7 +80,7 @@
 
     <EditText
         android:id="@+id/nombreEditText"
-        android:layout_width="276dp"
+        android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/secundario"
@@ -98,7 +98,7 @@
 
     <EditText
         android:id="@+id/apellidoEditText"
-        android:layout_width="271dp"
+        android:layout_width="280dp"
         android:layout_height="45dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/secundario"
