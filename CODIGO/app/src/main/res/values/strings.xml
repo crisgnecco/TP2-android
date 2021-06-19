@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CuidAR++</string>
+    <string name="title_activity_segunda">SegundaActivity</string>
+    <string name="base">http://so-unlam.net.ar/api/</string>
+    <string name="si">SI</string>
+    <string name="no">NO</string>
+</resources>

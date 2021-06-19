@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azul"
+    tools:context=".LoginActivity">
+
+    <Button
+        android:id="@+id/btnIrARegistrar"
+        android:layout_width="285dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginBottom="600dp"
+        android:background="@drawable/secundario"
+        android:onClick="registrarse"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Crear cuenta"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="327dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/secundario"
+        android:backgroundTint="#B6BBC3"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:paddingLeft="25dp"
+        android:paddingTop="10dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="245dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="64dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:background="@drawable/secundario"
+        android:backgroundTint="#B6BBC3"
+        app:layout_constraintBottom_toTopOf="@+id/btnIngresar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="83dp" />
+
+
+    <Button
+        android:id="@+id/btnIngresar"
+        android:layout_width="285dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="50dp"
+        android:onClick="Ingresar"
+        android:text="Iniciar Sesion"
+        android:background="@drawable/boton_rounded"
+        app:layout_constraintBottom_toTopOf="@+id/btnIrARegistrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="288dp"
+        android:layout_height="102dp"
+        android:layout_marginBottom="40dp"
+        android:text="Bienvenido"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/emailEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

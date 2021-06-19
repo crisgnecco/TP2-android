@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_weight="1"
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    tools:context=".InformeActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Formulario"
+                android:textColor="@color/negro"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/etiqueta_temperatura"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Temperatura"
+                    android:textColor="@color/negro" />
+
+                <EditText
+                    android:id="@+id/temperatura"
+                    android:layout_width="114dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint=""
+                    android:inputType="phone"
+                    android:textColor="@color/negro" />
+
+                <Button
+                    android:id="@+id/btTemperatura"
+                    android:layout_width="146dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/boton_rounded"
+                    android:onClick="tomarTemperatura"
+                    android:text="Tomar temperatura"
+                    android:textColor="@color/negro" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Percibiste una marcada pérdida del olfato de manera repentina?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/sinOlfato"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/sinOlfatoSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
+
+
+                <RadioButton
+                    android:id="@+id/sinOlfatoNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Percibiste una marcada pérdida del gusto (sabor de los alimentos) de manera repentina?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/sinGusto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/sinGustoSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/sinGustoNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés tos?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/tos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/tosSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/tosNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés dolor de garganta?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/dolorGarganta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/dolorGargantaSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/dolorGargantaNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés dificultad respiratoria o falta de aire?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/faltaAire"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/faltaAireSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/faltaAireNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés dolor de cabeza?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/dolorCabeza"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/dolorCabezaSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/dolorCabezaNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés diarrea?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/diarrea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/diarreaSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/diarreaNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés vómitos?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/vomito"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/vomitoSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/vomitoNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
+            </RadioGroup>
+
+            <View
+                android:id="@+id/divider12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tenés dolor muscular?"
+                android:textColor="@color/negro" />
+
+            <RadioGroup
+                android:id="@+id/dolorMuscular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/dolorMuscularSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/si"
+                    android:buttonTint="@color/azul"/>
+
+                <RadioButton
+                    android:id="@+id/dolorMuscularNO"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/no"
+                    android:buttonTint="@color/azul"/>
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btConfirmar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/boton_rounded"
+                android:onClick="procesarFomulario"
+                android:text="Confirmar" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
