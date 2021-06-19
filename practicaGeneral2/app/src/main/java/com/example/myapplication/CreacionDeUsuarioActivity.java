@@ -14,7 +14,13 @@ import android.widget.Toast;
 import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.services.SoaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +35,6 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creacion_de_usuario);
     }
-
 
     public boolean hayConexionAInternet() {
         boolean connected = false;
@@ -84,16 +89,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
         SoaRequest request = new SoaRequest();
 
-        //Para Test
-        //request.setName("Cris");
-        //request.setLastname("Gnecco");
-        // request.setDni(40024360);
-        //request.setEmail(email);
-        //request.setDni(40024360);
-        //request.setEmail("cris.gneccoxd@gmail.com")
-        //request.setPassword("miercoles1");
-
-        request.setEnv("TEST");
+        request.setEnv("PROD");
         request.setName(nombre);
         request.setLastname(apellido);
         request.setDni(Long.parseLong(dni));
@@ -121,9 +117,20 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 //verifico si el code esta 200-300
                 if (response.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Se registro el usuario: " + request.getName(), Toast.LENGTH_LONG).show();
+
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
-                } else {
-                    Log.e("failure",response.message());
+                } else if(response.body() == null){
+
+                    Gson gson = new Gson();
+                    Type type =  new TypeToken<SoaResponse>(){}.getType();
+
+                    // uso directo el JSON y lo convierto a SoaResponse, en vez de usar el mapeo de retrofir para poder obtener el error.
+                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+
+                    Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
+                    Log.i("mensajeError",errorResponse.getMsg());
+                }else{
+                    Log.i("mensajeFallo","fallo");
                 }
             }
 
