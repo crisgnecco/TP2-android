@@ -17,6 +17,7 @@ public class Resultado extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
+
         temperatura = findViewById(R.id.tempSalida);
         sintomas = findViewById(R.id.sintomas);
         resultado = findViewById(R.id.resultado);

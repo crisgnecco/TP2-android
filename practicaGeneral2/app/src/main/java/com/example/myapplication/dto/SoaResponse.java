@@ -1,5 +1,7 @@
 package com.example.myapplication.dto;
 
+import android.accessibilityservice.GestureDescription;
+
 public class SoaResponse {
 
 

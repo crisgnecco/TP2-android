@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -47,6 +45,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
      se usara para enviarlo a la activity Resultado
     */
 
+    Intent serviceActualizarToken;
+    Intent serviceRegistrarEvento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +77,12 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         sintomasNoPrioritarios.put(vomito, "Vomito");
 
         cargarTemperatura();
+      
+        //Actualizar token cada 6 minutos. El token dura 7 min en el server.      
+        ServiceActualizacionToken.iniciar();
+        serviceActualizarToken = new Intent(this, ServiceActualizacionToken.class);
+        startService(serviceActualizarToken);
+
     }
 
     private void registrarSensores() {
@@ -220,9 +226,14 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
 
     }
 
-    public void tomarTemperatura(View view) {
-        // Cuando se presione el boton "Tomar Temperatura" se registra al sensor de luminisidad como evento a escuchar
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+    // Cuando se presione el boton "Tomar Temperatura" se registra al sensor de luminisidad como evento a escuchar
+    public void tomarTemperatura(View view){
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
+        ServiceRegistroEvento.agregarEvento("temperatura tomada", "temperatura");
+        
+        serviceRegistrarEvento = new Intent(LecturaSensores.this, ServiceRegistroEvento.class);
+        startService(serviceRegistrarEvento);
+        temperatura.setText(unDecimal.format(valorTemperatura));
     }
 
 }

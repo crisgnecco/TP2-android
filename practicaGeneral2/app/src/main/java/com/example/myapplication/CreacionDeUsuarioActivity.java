@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.dto.ErrorResponse;
 import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
+import com.example.myapplication.dto.SoaResponseEvent;
 import com.example.myapplication.services.SoaService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -63,7 +65,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
         String email = emailView.getText().toString();
         String nombre = nombreView.getText().toString();
         String apellido = apellidoView.getText().toString();
-        String dni = dniView.getText().toString();
+        String  dni = dniView.getText().toString();
 
 
         /**Validaciones de conexion y campos EMAIl, DNI, PASS*/
@@ -89,7 +91,7 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
         SoaRequest request = new SoaRequest();
 
-        request.setEnv("PROD");
+      request.setEnv("PROD");
         request.setName(nombre);
         request.setLastname(apellido);
         request.setDni(Long.parseLong(dni));
@@ -120,12 +122,12 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
 
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
                 } else if(response.body() == null){
-
-                    Gson gson = new Gson();
-                    Type type =  new TypeToken<SoaResponse>(){}.getType();
-
-                    // uso directo el JSON y lo convierto a SoaResponse, en vez de usar el mapeo de retrofir para poder obtener el error.
-                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    
+                  Gson gson = new Gson();
+                   Type type =  new TypeToken<ErrorResponse>(){}.getType();
+                   
+                  // uso directo el JSON y lo convierto a SoaResponse, en vez de usar el mapeo de retrofir para poder obtener el error.
+                  ErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
 
                     Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
                     Log.i("mensajeError",errorResponse.getMsg());
