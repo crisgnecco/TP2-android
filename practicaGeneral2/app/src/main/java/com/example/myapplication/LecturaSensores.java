@@ -64,8 +64,8 @@ public class LecturaSensores extends AppCompatActivity implements SensorEventLis
         sintomasNoPrioritarios.put(vomito, "Vomito");
 
         cargarTemperatura();
-
-         serviceActualizarToken = new Intent(this, ServiceActualizacionToken.class);
+        ServiceActualizacionToken.iniciar();
+        serviceActualizarToken = new Intent(this, ServiceActualizacionToken.class);
         startService(serviceActualizarToken);
 
     }

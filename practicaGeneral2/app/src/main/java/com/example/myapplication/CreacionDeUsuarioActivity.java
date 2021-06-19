@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.dto.ErrorResponse;
 import com.example.myapplication.dto.SoaRequest;
 import com.example.myapplication.dto.SoaResponse;
 import com.example.myapplication.dto.SoaResponseEvent;
@@ -129,8 +130,8 @@ public class CreacionDeUsuarioActivity extends AppCompatActivity {
                 //Aca entraria si hay errores en el request, por eso se validan en campos de UI
                 } else if(response.body() == null){
                     Gson gson = new Gson();
-                    Type type =  new TypeToken<SoaResponse>(){}.getType();
-                    SoaResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    Type type =  new TypeToken<ErrorResponse>(){}.getType();
+                    ErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
                     Toast.makeText(getBaseContext(), errorResponse.getMsg(), Toast.LENGTH_LONG).show();
                     Log.i("mensajeError",errorResponse.getMsg());
                 }else{

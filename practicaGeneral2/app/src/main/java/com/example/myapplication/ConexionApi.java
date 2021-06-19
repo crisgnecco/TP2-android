@@ -2,8 +2,10 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.myapplication.dto.ConstanteToken;
+import com.example.myapplication.dto.ErrorResponse;
 import com.example.myapplication.dto.SoaRequestEvent;
 import com.example.myapplication.dto.SoaResponseEvent;
 import com.example.myapplication.dto.SoaResponseLogin;
@@ -18,14 +20,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegistroEvento {
-    private Context contex;
-    public RegistroEvento (){
+public class ConexionApi {
+
+    private Context context;
+    public  ConexionApi(Context context){
+        this.context=context;
+    }
+    public ConexionApi(){
 
     }
-    public RegistroEvento(Context context){
-        this.contex = context;
-    }
+
     public void registrarEvento(String descripcion, String type_events){
         SoaRequestEvent requestEvent = new SoaRequestEvent();
         requestEvent.setEnv("PROD");
@@ -47,8 +51,9 @@ public class RegistroEvento {
                     Log.i("mensajeSuccess",type_events + "registrado");
                 }else if(response.body() == null){
                     Gson gson = new Gson();
-                    Type type =  new TypeToken<SoaResponseEvent>(){}.getType();
-                    SoaResponseEvent errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    Type type =  new TypeToken<ErrorResponse>(){}.getType();
+                    ErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    Toast.makeText(context, errorResponse.getMsg(), Toast.LENGTH_LONG).show();
                     Log.i("mensajeError",errorResponse.getMsg());
                 }else{
                     Log.i("mensajeFallo","fallo "+descripcion);
@@ -79,9 +84,9 @@ public class RegistroEvento {
                     Log.i("mensajeSuccess", "Token actualizado");
                 }else if(response.body() == null){
                     Gson gson = new Gson();
-                    Type type =  new TypeToken<SoaResponseEvent>(){}.getType();
-                    SoaResponseEvent errorResponse = gson.fromJson(response.errorBody().charStream(), type);
-                    String msg = errorResponse.getMsg();
+                    Type type =  new TypeToken<ErrorResponse>(){}.getType();
+                    ErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                    Toast.makeText(context, errorResponse.getMsg(), Toast.LENGTH_LONG).show();
                     //if(msg.contains())
                     Log.i("mensajeError",errorResponse.getMsg());
                 }else{

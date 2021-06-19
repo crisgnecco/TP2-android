@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class ServiceRegistroEvento extends IntentService {
 
-    static boolean enEjecucion = true;
+
     static int evento = 0;
     static String descripcions, type_events;
     public ServiceRegistroEvento() {
@@ -17,9 +17,9 @@ public class ServiceRegistroEvento extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-       //while (enEjecucion){
+
            if (evento == 1){
-               RegistroEvento resgistroEvent = new RegistroEvento();
+               ConexionApi resgistroEvent = new ConexionApi();
                resgistroEvent.registrarEvento(descripcions, type_events);
                try{
                    sleep(1000);
@@ -28,9 +28,6 @@ public class ServiceRegistroEvento extends IntentService {
                    e.printStackTrace();
                }
            }
-       //}
-
-
     }
     public static void agregarEvento(String descripcion, String type_event) {
         descripcions= descripcion;
@@ -38,7 +35,5 @@ public class ServiceRegistroEvento extends IntentService {
         evento = 1;
     }
 
-    public static void detener() {
-        enEjecucion = false;
-    }
+
 }
