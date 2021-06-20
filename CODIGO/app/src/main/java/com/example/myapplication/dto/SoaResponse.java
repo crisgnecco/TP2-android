@@ -9,7 +9,6 @@ public class SoaResponse {
     private String env;
     private String token;
     private String token_refresh;
-    
 
     public Boolean getSuccess() {
         return success;

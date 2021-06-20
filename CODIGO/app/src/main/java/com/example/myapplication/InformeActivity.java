@@ -219,6 +219,11 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
         intent.putExtra("cantidad_sintomas_no_prioritarios", contador);
         intent.putExtra("sintomas", sintomas);
 
+        ServiceRegistroEvento.agregarEvento("Se completa el formulario", "Formulario");
+
+        serviceRegistrarEvento = new Intent(InformeActivity.this, ServiceRegistroEvento.class);
+        startService(serviceRegistrarEvento);
+
         Toast.makeText(getApplicationContext(), "Gracias por llenar el formulario", Toast.LENGTH_SHORT).show();
         startActivity(intent);
 
@@ -227,10 +232,7 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
     // Cuando se presione el boton "Tomar Temperatura" se registra al sensor de luminisidad como evento a escuchar
     public void tomarTemperatura(View view){
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
-        ServiceRegistroEvento.agregarEvento("temperatura tomada", "temperatura");
-        
-        serviceRegistrarEvento = new Intent(InformeActivity.this, ServiceRegistroEvento.class);
-        startService(serviceRegistrarEvento);
+
         temperatura.setText(unDecimal.format(valorTemperatura));
     }
 
