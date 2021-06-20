@@ -49,7 +49,7 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lectura_sensores);
+        setContentView(R.layout.activity_informe);
 
         temperatura = findViewById(R.id.temperatura);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
