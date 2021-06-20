@@ -36,9 +36,10 @@
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
+        app:layout_constraintVertical_bias="0.931" />
 
     <EditText
         android:id="@+id/emailEditText"
@@ -116,8 +117,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="68dp"
-        android:layout_height="45dp"
+        android:layout_width="84dp"
+        android:layout_height="76dp"
         android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@id/nombreEditText"
         app:layout_constraintEnd_toEndOf="parent"

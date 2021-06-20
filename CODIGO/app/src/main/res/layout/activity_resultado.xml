@@ -20,6 +20,9 @@
         android:id="@+id/tempSalida"
         android:layout_width="match_parent"
         android:layout_height="79dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="16sp"
         android:gravity="center_vertical"
         android:textColor="@color/negro" />
 
@@ -27,6 +30,8 @@
         android:id="@+id/labelSintomas"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:text="Sus sintomas:"
         android:textColor="@color/negro" />
@@ -35,20 +40,34 @@
         android:id="@+id/sintomas"
         android:layout_width="match_parent"
         android:layout_height="165dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="20dp"
+        android:textSize="17sp"
         android:textColor="@color/negro" />
 
     <TextView
         android:id="@+id/resultado"
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center"
         android:textColor="@color/negro" />
 
     <TextView
         android:id="@+id/informacion"
         android:layout_width="match_parent"
         android:layout_height="88dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:textSize="14sp"
         android:gravity="center_vertical"
+        android:background="@drawable/consejo"
         android:textColor="@color/negro" />
 
 </LinearLayout>
