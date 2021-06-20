@@ -45,6 +45,7 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
 
     Intent serviceActualizarToken;
     Intent serviceRegistrarEvento;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,7 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
         sintomasNoPrioritarios.put(vomito, "Vomito");
 
         cargarTemperatura();
-      
+
         //Actualizar token cada 6 minutos. El token dura 7 min en el server.      
         ServiceActualizacionToken.iniciar();
         serviceActualizarToken = new Intent(this, ServiceActualizacionToken.class);
@@ -91,30 +92,12 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
         mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
 
-
-    @Override
-    protected void onPause() {
-        //quitarSensores();
-        super.onPause();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         registrarSensores();
-}
-
-    @Override
-    protected void onRestart() {
-        //registrarSensores();
-        super.onRestart();
     }
 
-    @Override
-    protected void onStop() {
-        // quitarSensores();
-        super.onStop();
-    }
 
     @Override
     protected void onDestroy() {
@@ -230,9 +213,8 @@ public class InformeActivity extends AppCompatActivity implements SensorEventLis
     }
 
     // Cuando se presione el boton "Tomar Temperatura" se registra al sensor de luminisidad como evento a escuchar
-    public void tomarTemperatura(View view){
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),   SensorManager.SENSOR_DELAY_NORMAL);
-
+    public void tomarTemperatura(View view) {
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
         temperatura.setText(unDecimal.format(valorTemperatura));
     }
 
